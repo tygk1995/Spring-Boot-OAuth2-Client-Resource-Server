@@ -39,4 +39,16 @@ public class PasswordEncoderTests {
         System.err.println(encode);
     }
 
+    /**
+     * {bcrypt}$2a$10$/f6qc5liQvYuZMUZlec3aOcZqd.TKxtmOtmVTJzyxVupoK31zGCW.
+     */
+    @Test
+    public void createClientSecret() {
+        PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        String encode = delegatingPasswordEncoder.encode("da4ce585e30346d3a876340d49e25a01");
+
+        System.err.println(encode);
+    }
+
 }
