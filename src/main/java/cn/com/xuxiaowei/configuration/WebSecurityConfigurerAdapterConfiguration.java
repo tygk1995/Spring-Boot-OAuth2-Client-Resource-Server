@@ -15,12 +15,18 @@
  */
 package cn.com.xuxiaowei.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.sql.DataSource;
 
 /**
  * Spring Security 配置
@@ -34,9 +40,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final DataSource dataSource;
+
+    @Autowired
+    public WebSecurityConfigurerAdapterConfiguration(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+
+        // 用户密码编辑器
+        PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        // 查询登录用户
+        auth.userDetailsService(jdbcDaoImpl()).passwordEncoder(delegatingPasswordEncoder);
     }
 
     @Override
@@ -47,6 +65,15 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
+    }
+
+    /**
+     * 登录时查询用户
+     */
+    public JdbcDaoImpl jdbcDaoImpl() {
+        JdbcDaoImpl jdbcDao = new JdbcDaoImpl();
+        jdbcDao.setDataSource(dataSource);
+        return jdbcDao;
     }
 
 }
