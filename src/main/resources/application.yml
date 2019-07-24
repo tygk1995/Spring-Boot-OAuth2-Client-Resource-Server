@@ -12,3 +12,8 @@ spring:
     username: root
     # 数据库 密码
     password: root
+  #
+  # Thymeleaf 配置
+  thymeleaf:
+    # 是否启用模板缓存。
+    cache: false
