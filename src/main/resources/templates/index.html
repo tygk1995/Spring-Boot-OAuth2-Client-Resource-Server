@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<h2>Index</h2>
+
+<div sec:authorize="isAuthenticated()" th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">
+    如果用户已登录，显示用户名
+</div>
+
+</body>
+</html>
