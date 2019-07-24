@@ -7,7 +7,7 @@ spring:
     # 数据库 驱动名称（包括包名）
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 数据库 URL
-    url: jdbc:mysql://127.0.0.1:3306/xspring-boot-oauth2-client-resource-server?useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/spring-boot-oauth2-client-resource-server?useSSL=false&serverTimezone=GMT%2B8
     # 数据库 用户名
     username: root
     # 数据库 密码
