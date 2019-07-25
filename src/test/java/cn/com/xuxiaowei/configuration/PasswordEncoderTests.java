@@ -20,7 +20,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * PasswordEncoder 测试类
+ * PasswordEncoder 密码编辑器 测试类
  * <p>
  * 说明：
  * 使用{@link PasswordEncoderFactories#createDelegatingPasswordEncoder()}加密数据，不同于MD5，
