@@ -12,6 +12,40 @@
 - Spring OAuth2 Resource Server
     - 资源管理服务
     
+## 使用说明
+
+### 用户登录
+- http://127.0.0.1:8080/login
+- 用户名：xuxiaowei
+- 密码：123
+- 密码已加密：
+    - [PasswordEncoder 密码编辑器 测试类](https://github.com/xuxiaowei-com-cn/Spring-Boot-OAuth2-Client-Resource-Server/blob/master/src/test/java/cn/com/xuxiaowei/configuration/PasswordEncoderTests.java)
+    - [Spring Security 配置](https://github.com/xuxiaowei-com-cn/Spring-Boot-OAuth2-Client-Resource-Server/blob/master/src/main/java/cn/com/xuxiaowei/configuration/WebSecurityConfigurerAdapterConfiguration.java)
+- SQL
+    - users 表
+        - enabled 是否启用用户
+    - authorities 表
+        - authority 用户拥有的角色
+~~~
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users`  (
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+
+INSERT INTO `users`(`username`, `password`, `enabled`) VALUES ('xuxiaowei', '{bcrypt}$2a$10$nDGmklGtTcL/AWNisIqgJ.p8z0teas89FhMAGdVSNlQxR/uMG/ZrS', 1);
+~~~
+~~~
+DROP TABLE IF EXISTS `authorities`;
+CREATE TABLE `authorities`  (
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `authority` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+
+INSERT INTO `authorities`(`username`, `authority`) VALUES ('xuxiaowei', 'ROLE_USER');
+~~~
+
 ## 依赖说明
 
 - Spring Web Starter（必须）
