@@ -29,6 +29,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -87,6 +88,11 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
             /**
              * 重写 code 持久化，自定义 code 长度
+             * <p>
+             * 默认长度为 6
+             *
+             * @see RandomValueAuthorizationCodeServices#createAuthorizationCode(OAuth2Authentication)
+             * @see RandomValueStringGenerator#RandomValueStringGenerator()
              */
             @Override
             public String createAuthorizationCode(OAuth2Authentication authentication) {
