@@ -29,6 +29,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
  * 资源服务器配置
  *
  * @author xuxiaowei
+ * @see <a href="http://127.0.0.1:8080/sns/userinfo?access_token=">访问资源</a>
  * @see org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
  * @see org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfiguration
  * @see org.springframework.security.config.web.server.SecurityWebFiltersOrder
