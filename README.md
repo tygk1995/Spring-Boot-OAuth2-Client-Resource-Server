@@ -15,6 +15,7 @@
 ## 使用说明
 
 ### 用户登录
+- 使用默认登录配置，如要自定义，请前往[Spring-Boot-Security](https://github.com/xuxiaowei-com-cn/Spring-Boot-Security)
 - http://127.0.0.1:8080/login
 - 用户名：xuxiaowei
 - 密码：123
