@@ -29,7 +29,7 @@ CREATE TABLE `authorities`  (
 -- ----------------------------
 -- Records of authorities
 -- ----------------------------
-INSERT INTO `authorities` VALUES ('user', 'ROLE_USER');
+INSERT INTO `authorities` VALUES ('xuxiaowei', 'ROLE_USER');
 
 -- ----------------------------
 -- Table structure for oauth_access_token
@@ -51,12 +51,12 @@ CREATE TABLE `oauth_access_token`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_client_details`;
 CREATE TABLE `oauth_client_details`  (
-  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT 'error=\"invalid_client\", error_description=\"Bad client credentials\"',
+  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '未找到时：\r\nerror=\"invalid_client\", error_description=\"Bad client credentials\"',
   `client_secret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `resource_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '{\"error\":\"invalid_scope\",\"error_description\":\"Empty scope (either the client or the user is not allowed the requested scopes)\"}\r\nerror=invalid_scope&error_description=Invalid%20scope:%20base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7&scope=userinfo',
+  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '为null时：{\"error\":\"invalid_scope\",\"error_description\":\"Empty scope (either the client or the user is not allowed the requested scopes)\"}\r\n未匹配到时：\r\nerror=invalid_scope&error_description=Invalid%20scope:%20base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7&scope=userinfo',
   `authorized_grant_types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `web_server_redirect_uri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'error=\"invalid_request\", error_description=\"At least one redirect_uri must be registered with the client.\"',
+  `web_server_redirect_uri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '为null时：\r\nerror=\"invalid_request\", error_description=\"At least one redirect_uri must be registered with the client.\"',
   `authorities` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `access_token_validity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `refresh_token_validity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
