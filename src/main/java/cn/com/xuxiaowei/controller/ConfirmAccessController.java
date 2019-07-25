@@ -35,6 +35,7 @@ import java.util.Set;
  *
  * @author xuxiaowei
  * @see SessionAttributes
+ * @since 0.0.1
  */
 @Controller
 @SessionAttributes("authorizationRequest")
