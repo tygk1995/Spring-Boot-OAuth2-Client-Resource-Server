@@ -152,6 +152,14 @@ CREATE TABLE `oauth_refresh_token`  (
 - 注意
     - client_secret 默认加密为 PasswordEncoderFactories.createDelegatingPasswordEncoder()
 
+## 访问资源
+
+- 获取用户信息
+
+    - [获取用户 URL](http://127.0.0.1:8080/sns/userinfo?access_token=)
+        - access_token
+            - 获取 Token 中的 access_token
+
 ## 依赖说明
 
 - Spring Web Starter（必须）
