@@ -29,6 +29,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import javax.sql.DataSource;
 
@@ -86,6 +87,11 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
         // 自定义显示授权服务器的批准页面。
         endpoints.pathMapping("/oauth/confirm_access", "/oauth/customize_confirm_access");
+
+        // 加密 Token
+        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey("hgiYUt%^&%hiiuoHIH");
+        endpoints.tokenEnhancer(jwtAccessTokenConverter);
     }
 
     /**
