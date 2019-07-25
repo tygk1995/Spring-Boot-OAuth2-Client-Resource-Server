@@ -21,11 +21,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerEndpointsConfiguration;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
@@ -64,6 +66,10 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
         clients.withClientDetails(new JdbcClientDetailsService(dataSource));
     }
 
+    /**
+     * @see WhitelabelApprovalEndpoint
+     * @see AuthorizationServerEndpointsConfiguration#authorizationEndpoint()
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 获取 Token 可使用 GET、POST
@@ -77,6 +83,9 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
         // Token 持久化
         endpoints.tokenStore(new JdbcTokenStore(dataSource));
+
+        // 自定义显示授权服务器的批准页面。
+        endpoints.pathMapping("/oauth/confirm_access", "/oauth/customize_confirm_access");
     }
 
     /**
