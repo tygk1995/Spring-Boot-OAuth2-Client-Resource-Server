@@ -21,6 +21,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * PasswordEncoder 测试类
+ * <p>
+ * 说明：
+ * 使用{@link PasswordEncoderFactories#createDelegatingPasswordEncoder()}加密数据，不同于MD5，
+ * 针对相同数据，每次加密结果都不相同
  *
  * @author xuxiaowei
  * @since 0.0.1
@@ -28,26 +32,36 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PasswordEncoderTests {
 
     /**
-     * {bcrypt}$2a$10$nDGmklGtTcL/AWNisIqgJ.p8z0teas89FhMAGdVSNlQxR/uMG/ZrS
+     * 创建密码：
+     * 未加密密码：123
+     * 加密密码：{bcrypt}$2a$10$nDGmklGtTcL/AWNisIqgJ.p8z0teas89FhMAGdVSNlQxR/uMG/ZrS
      */
     @Test
     public void createPassword() {
         PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
         String encode = delegatingPasswordEncoder.encode("123");
-
         System.err.println(encode);
     }
 
     /**
-     * {bcrypt}$2a$10$/f6qc5liQvYuZMUZlec3aOcZqd.TKxtmOtmVTJzyxVupoK31zGCW.
+     * 密码比较
+     */
+    @Test
+    public void matches() {
+        PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        boolean matches = delegatingPasswordEncoder.matches("123", "{bcrypt}$2a$10$nDGmklGtTcL/AWNisIqgJ.p8z0teas89FhMAGdVSNlQxR/uMG/ZrS");
+        System.err.println(matches);
+    }
+
+    /**
+     * 创建 ClientSecret：
+     * 未加密 ClientSecret：da4ce585e30346d3a876340d49e25a01
+     * 加密 ClientSecret：{bcrypt}$2a$10$/f6qc5liQvYuZMUZlec3aOcZqd.TKxtmOtmVTJzyxVupoK31zGCW.
      */
     @Test
     public void createClientSecret() {
         PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
         String encode = delegatingPasswordEncoder.encode("da4ce585e30346d3a876340d49e25a01");
-
         System.err.println(encode);
     }
 
