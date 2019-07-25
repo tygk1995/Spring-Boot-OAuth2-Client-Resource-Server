@@ -34,6 +34,9 @@ import javax.sql.DataSource;
  * {@link EnableWebSecurity} 可省略
  *
  * @author xuxiaowei
+ * @see org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
+ * @see org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfiguration
+ * @see org.springframework.security.config.web.server.SecurityWebFiltersOrder
  * @since 0.0.1
  */
 @Configuration
