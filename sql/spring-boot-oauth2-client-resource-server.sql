@@ -55,7 +55,7 @@ CREATE TABLE `oauth_client_details`  (
   `client_secret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `resource_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '为null时：{\"error\":\"invalid_scope\",\"error_description\":\"Empty scope (either the client or the user is not allowed the requested scopes)\"}\r\n未匹配到时：\r\nerror=invalid_scope&error_description=Invalid%20scope:%20base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7&scope=userinfo',
-  `authorized_grant_types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `authorized_grant_types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '为null时，默认为：authorization_code,refresh_token',
   `web_server_redirect_uri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '为null时：\r\nerror=\"invalid_request\", error_description=\"At least one redirect_uri must be registered with the client.\"',
   `authorities` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `access_token_validity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
