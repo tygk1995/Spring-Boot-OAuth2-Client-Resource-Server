@@ -16,8 +16,12 @@
 package cn.com.xuxiaowei.configuration;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfiguration;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
@@ -25,6 +29,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
  * 资源服务器配置
  *
  * @author xuxiaowei
+ * @see org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer
+ * @see org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfiguration
+ * @see org.springframework.security.config.web.server.SecurityWebFiltersOrder
  * @since 0.0.1
  */
 @Configuration
@@ -36,9 +43,29 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
         super.configure(resources);
     }
 
+    /**
+     * {@link ResourceServerConfigurerAdapter}需要使用{@link EnableResourceServer}，
+     * 在{@link EnableResourceServer}中使用了{@link ResourceServerConfiguration}，
+     * 而{@link ResourceServerConfiguration}的{@link Order}为3，
+     * 故{@link ResourceServerConfigurerAdapter}的{@link Order}也为3。
+     * <p>
+     * 而{@link WebSecurityConfigurerAdapter}的{@link Order}为100，
+     * 同时使用{@link WebSecurityConfigurerAdapter}和{@link ResourceServerConfigurerAdapter}时，
+     * 需要为{@link ResourceServerConfigurerAdapter#configure(HttpSecurity)}配置<code>http.antMatcher("/sns/**")</code>，
+     * 否则{@link WebSecurityConfigurerAdapter}优先级低，将不起作用。
+     * <p>
+     * 注意：
+     * 使用{@link Order}调整{@link WebSecurityConfigurerAdapter}、{@link ResourceServerConfigurerAdapter}的优先级也可行，
+     * 但是不推荐，有风险。
+     * 需要某些路径具有某些权限（特性）就直接去配置它们，不要牵扯别的模块。
+     */
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http.antMatcher("/sns/**")
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/sns/userInfo").access("#oauth2.hasScope('base')")
+                .antMatchers(HttpMethod.POST, "/sns/userInfo").access("#oauth2.hasScope('base')")
+        ;
     }
 
 }
