@@ -31,6 +31,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint;
+import org.springframework.security.oauth2.provider.endpoint.WhitelabelErrorEndpoint;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
@@ -72,6 +73,7 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
     /**
      * @see WhitelabelApprovalEndpoint
+     * @see WhitelabelErrorEndpoint
      * @see AuthorizationServerEndpointsConfiguration#authorizationEndpoint()
      */
     @Override
