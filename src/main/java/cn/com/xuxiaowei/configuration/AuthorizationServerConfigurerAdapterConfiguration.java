@@ -19,12 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerEndpointsConfiguration;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint;
@@ -80,7 +82,20 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
         endpoints.userDetailsService(jdbcDaoImpl());
 
         // code 持久化
-        endpoints.authorizationCodeServices(new JdbcAuthorizationCodeServices(dataSource));
+        endpoints.authorizationCodeServices(new JdbcAuthorizationCodeServices(dataSource) {
+            private RandomValueStringGenerator generator = new RandomValueStringGenerator();
+
+            /**
+             * 重写 code 持久化，自定义 code 长度
+             */
+            @Override
+            public String createAuthorizationCode(OAuth2Authentication authentication) {
+                generator.setLength(32);
+                String code = generator.generate();
+                store(code, authentication);
+                return code;
+            }
+        });
 
         // Token 持久化
         endpoints.tokenStore(new JdbcTokenStore(dataSource));
