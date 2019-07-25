@@ -15,13 +15,21 @@
  */
 package cn.com.xuxiaowei.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 社交资源
@@ -33,8 +41,18 @@ import java.util.Map;
 @RequestMapping("/sns")
 public class SnsRestController {
 
+    private final DataSource dataSource;
+
+    @SuppressWarnings("all")
+    private final String USERINFO_BY_USERNAME = "SELECT username,sex,province,city,country,headimg_url FROM users WHERE username = ?";
+
+    @Autowired
+    public SnsRestController(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     /**
-     * 获取用户详细信息的资源
+     * 根据 scope 获取用户详细信息的资源
      */
     @RequestMapping("/userinfo")
     public ResponseEntity<Map> userinfo(OAuth2Authentication oAuth2Authentication) {
@@ -43,9 +61,47 @@ public class SnsRestController {
 
         String name = oAuth2Authentication.getName();
 
-        map.put("username", name);
+        OAuth2Request oAuth2Request = oAuth2Authentication.getOAuth2Request();
+        Set<String> scopes = oAuth2Request.getScope();
+
+        boolean userinfo = scopes.contains("userinfo");
+        if (userinfo) {
+            map = userinfo(name);
+        } else {
+            map.put("username", name);
+        }
 
         return ResponseEntity.ok(map);
+    }
+
+    /**
+     * 根据用户名查询用户信息
+     *
+     * @param username 用户名（主键）
+     * @return 返回用户信息
+     */
+    @SuppressWarnings("all")
+    private Map<String, Object> userinfo(String username) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource);
+
+        return jdbcTemplate.queryForObject(USERINFO_BY_USERNAME,
+                new String[]{username},
+                new RowMapper<Map>() {
+                    @Override
+                    public Map mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        Map<String, Object> userinfo = new HashMap<>(8);
+
+                        userinfo.put("username", rs.getString(1));
+                        userinfo.put("sex", rs.getInt(2));
+                        userinfo.put("province", rs.getString(3));
+                        userinfo.put("city", rs.getString(4));
+                        userinfo.put("country", rs.getString(5));
+                        userinfo.put("headimgUrl", rs.getString(6));
+
+                        return userinfo;
+                    }
+                });
     }
 
 }
