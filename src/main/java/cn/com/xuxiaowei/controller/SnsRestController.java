@@ -43,9 +43,6 @@ public class SnsRestController {
 
     private final DataSource dataSource;
 
-    @SuppressWarnings("all")
-    private final String USERINFO_BY_USERNAME = "SELECT username,sex,province,city,country,headimg_url FROM users WHERE username = ?";
-
     @Autowired
     public SnsRestController(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -80,10 +77,12 @@ public class SnsRestController {
      * @param username 用户名（主键）
      * @return 返回用户信息
      */
-    @SuppressWarnings("all")
+    @SuppressWarnings("unchecked")
     private Map<String, Object> userinfo(String username) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
+
+        String USERINFO_BY_USERNAME = "SELECT username,sex,province,city,country,headimg_url FROM users WHERE username = ?";
 
         return jdbcTemplate.queryForObject(USERINFO_BY_USERNAME,
                 new String[]{username},
