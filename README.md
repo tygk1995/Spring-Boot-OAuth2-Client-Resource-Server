@@ -56,7 +56,8 @@ INSERT INTO `authorities`(`username`, `authority`) VALUES ('xuxiaowei', 'ROLE_US
         - response_type
             - code
         - scope
-            - base
+            - base：只能获到用户名
+            - userinfo：获取用户详细信息
         - state
             - beff3dfc-bad8-40db-b25f-e5459e3d6ad7
 
