@@ -20,6 +20,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -27,6 +29,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
@@ -77,7 +80,22 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // 查询 Client
-        clients.withClientDetails(new JdbcClientDetailsService(dataSource));
+        clients.withClientDetails(new JdbcClientDetailsService(dataSource) {
+
+            /**
+             * 重写查询 Client 自定义异常
+             * <p>
+             * Client 不存在时的异常
+             */
+            @Override
+            public ClientDetails loadClientByClientId(String clientId) throws InvalidClientException {
+                try {
+                    return super.loadClientByClientId(clientId);
+                } catch (RuntimeException e) {
+                    throw OAuth2Exception.create(OAuth2Exception.INVALID_CLIENT, "非法参数：client_id");
+                }
+            }
+        });
     }
 
     /**
