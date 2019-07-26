@@ -84,12 +84,12 @@ public class ConfirmErrorController {
 
             map.put("errcode", httpErrorCode);
             map.put("error", oAuth2ErrorCode);
-            map.put("errmsg", HtmlUtils.htmlEscape(message));
+            map.put("error_description", HtmlUtils.htmlEscape(message));
         } else {
             // 不应该出现
             map.put("errcode", -1);
             map.put("error", "Unknown error");
-            map.put("errmsg", "系统繁忙");
+            map.put("error_description", "系统繁忙");
         }
 
         return map;
