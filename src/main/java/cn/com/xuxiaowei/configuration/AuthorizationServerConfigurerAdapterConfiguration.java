@@ -34,10 +34,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
-import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
-import org.springframework.security.oauth2.provider.endpoint.DefaultRedirectResolver;
-import org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint;
-import org.springframework.security.oauth2.provider.endpoint.WhitelabelErrorEndpoint;
+import org.springframework.security.oauth2.provider.endpoint.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -60,9 +57,13 @@ import java.util.Set;
  *
  * @author xuxiaowei
  * @see <a href="http://127.0.0.1:8080/oauth/authorize?client_id=5e03fb292edd4e478cd7b4d6fc21518c&redirect_uri=http://127.0.0.1:123&response_type=code&scope=base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 code</a>
+ * @see AuthorizationEndpoint#authorize(Map, Map, SessionStatus, Principal)
  * @see <a href="http://127.0.0.1:8080/oauth/token?code=qa8P6B&client_id=5e03fb292edd4e478cd7b4d6fc21518c&client_secret=da4ce585e30346d3a876340d49e25a01&redirect_uri=http://127.0.0.1:123&grant_type=authorization_code">获取 Token</a>
+ * @see TokenEndpoint#getAccessToken(Principal, Map)
  * @see <a href="http://127.0.0.1:8080/oauth/check_token?token=">检查 Token</a>
+ * @see CheckTokenEndpoint#checkToken(String)
  * @see <a href="http://127.0.0.1:8080/oauth/token?client_id=5e03fb292edd4e478cd7b4d6fc21518c&client_secret=da4ce585e30346d3a876340d49e25a01&grant_type=refresh_token&refresh_token=">刷新 Token</a>
+ * @see TokenEndpoint#getAccessToken(Principal, Map)
  * @since 0.0.1
  */
 @Configuration
