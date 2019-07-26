@@ -82,9 +82,9 @@ public class SnsRestController {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
 
-        String USERINFO_BY_USERNAME = "SELECT username,sex,province,city,country,headimg_url FROM users WHERE username = ?";
+        String userinfoByUsername = "SELECT username,sex,province,city,country,headimg_url FROM users WHERE username = ?";
 
-        return jdbcTemplate.queryForObject(USERINFO_BY_USERNAME,
+        return jdbcTemplate.queryForObject(userinfoByUsername,
                 new String[]{username},
                 new RowMapper<Map>() {
                     @Override
