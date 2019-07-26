@@ -69,6 +69,8 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("permitAll()");
         security.checkTokenAccess("permitAll()");
+
+        // 允许 Client 进行表单验证（URL），否则将出现弹窗输入 ClientId、ClientSecret
         security.allowFormAuthenticationForClients();
     }
 
