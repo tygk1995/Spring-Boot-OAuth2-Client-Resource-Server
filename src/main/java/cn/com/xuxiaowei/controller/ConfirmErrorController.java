@@ -17,15 +17,15 @@ package cn.com.xuxiaowei.controller;
 
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelErrorEndpoint;
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,8 +36,10 @@ import java.util.Map;
  * @see WhitelabelErrorEndpoint
  * @since 0.0.1
  */
-@RestController
+@Controller
 public class ConfirmErrorController {
+
+    private static final String ERROR = "<html><body><h1>OAuth 错误</h1><p>%errorSummary%</p></body></html>";
 
     /**
      * 自定义 用于显示授权服务器的错误页面（响应）。
@@ -66,33 +68,34 @@ public class ConfirmErrorController {
      * @see SessionAttributes
      */
     @RequestMapping("/oauth/customize_error")
-    public Map<String, Object> customizeConfirmAccess(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public ModelAndView customizeConfirmAccess(HttpServletRequest request, HttpServletResponse response) {
 
-        Map<String, Object> map = new HashMap<>(4);
-        map.put("timestamp", LocalDateTime.now());
-
+        Map<String, Object> model = new HashMap<String, Object>(4);
         Object error = request.getAttribute("error");
 
         // 错误摘要可能包含恶意用户输入，
         // 它需要被转义以防止XSS
+        String errorSummary;
         if (error instanceof OAuth2Exception) {
-            OAuth2Exception oAuth2Exception = (OAuth2Exception) error;
-            String oAuth2ErrorCode = oAuth2Exception.getOAuth2ErrorCode();
-
-            int httpErrorCode = oAuth2Exception.getHttpErrorCode();
-            String message = oAuth2Exception.getMessage();
-
-            map.put("errcode", httpErrorCode);
-            map.put("error", oAuth2ErrorCode);
-            map.put("error_description", HtmlUtils.htmlEscape(message));
+            OAuth2Exception oauthError = (OAuth2Exception) error;
+            errorSummary = HtmlUtils.htmlEscape(oauthError.getSummary());
         } else {
-            // 不应该出现
-            map.put("errcode", -1);
-            map.put("error", "Unknown error");
-            map.put("error_description", "系统繁忙");
+            errorSummary = "Unknown error";
         }
+        final String errorContent = ERROR.replace("%errorSummary%", errorSummary);
+        View errorView = new View() {
+            @Override
+            public String getContentType() {
+                return "text/html";
+            }
 
-        return map;
+            @Override
+            public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+                response.setContentType(getContentType());
+                response.getWriter().append(errorContent);
+            }
+        };
+        return new ModelAndView(errorView, model);
     }
 
 }
