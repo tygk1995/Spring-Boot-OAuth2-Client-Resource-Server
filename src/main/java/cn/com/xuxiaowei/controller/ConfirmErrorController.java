@@ -86,7 +86,7 @@ public class ConfirmErrorController {
         View errorView = new View() {
             @Override
             public String getContentType() {
-                return "text/html";
+                return "text/html;charset=UTF-8";
             }
 
             @Override
