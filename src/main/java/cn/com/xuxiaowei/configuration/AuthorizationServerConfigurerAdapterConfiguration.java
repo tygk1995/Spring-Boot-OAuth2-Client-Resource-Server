@@ -121,6 +121,9 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
         // 自定义显示授权服务器的批准页面。
         endpoints.pathMapping("/oauth/confirm_access", "/oauth/customize_confirm_access");
 
+        // 自定义 用于显示授权服务器的错误页面（响应）。
+        endpoints.pathMapping("/oauth/error", "/oauth/customize_error");
+
         // 加密 Token
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey("hgiYUt%^&%hiiuoHIH");
