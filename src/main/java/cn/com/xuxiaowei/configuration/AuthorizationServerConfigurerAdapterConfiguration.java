@@ -18,6 +18,7 @@ package cn.com.xuxiaowei.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -58,6 +59,11 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
         this.dataSource = dataSource;
     }
 
+    /**
+     * permitAll授予对任何人的访问权限，hasRole（'ROLE_ADMIN'）要求用户具有角色'ROLE_ADMIN'。
+     *
+     * @see ExpressionUrlAuthorizationConfigurer.AuthorizedUrl#permitAll
+     */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("permitAll()");
