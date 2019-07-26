@@ -34,16 +34,29 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint;
+import org.springframework.security.oauth2.provider.endpoint.DefaultRedirectResolver;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelErrorEndpoint;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.sql.DataSource;
+import java.security.Principal;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 授权服务器配置
+ * <p>
+ * redirect_uri：
+ * 当数据库中只用一个redirect_uri时，可缺省
+ * 参见：
+ * {@link AuthorizationEndpoint#authorize(Map, Map, SessionStatus, Principal)}
+ * {@link DefaultRedirectResolver#resolveRedirect(String, ClientDetails)}
+ * {@link DefaultRedirectResolver#obtainMatchingRedirect(Set, String)}
  *
  * @author xuxiaowei
  * @see <a href="http://127.0.0.1:8080/oauth/authorize?client_id=5e03fb292edd4e478cd7b4d6fc21518c&redirect_uri=http://127.0.0.1:123&response_type=code&scope=base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 code</a>
