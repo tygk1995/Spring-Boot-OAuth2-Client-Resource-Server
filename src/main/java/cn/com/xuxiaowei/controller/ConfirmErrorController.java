@@ -41,6 +41,26 @@ public class ConfirmErrorController {
 
     /**
      * 自定义 用于显示授权服务器的错误页面（响应）。
+     * <p>
+     * errcode：401
+     * error：invalid_client（客户凭证无效）
+     * errmsg：Bad client credentials（客户端凭据错误）
+     * 可能出现的原因：1、数据库不存在 client_id
+     * <p>
+     * errcode：400
+     * error：invalid_request（非法请求）
+     * errmsg：At least one redirect_uri must be registered with the client.（必须至少向客户注册一个redirect_uri。）
+     * 可能出现的原因：1、数据库中 redirect_uri 为 null
+     * errmsg：Invalid redirect: http://127.0.0.1:123 does not match one of the registered values.（无效的重定向：http：//127.0.0.1：123与其中一个注册值不匹配。）
+     * <p>
+     * errcode：400
+     * error：invalid_request（非法请求）
+     * errmsg：Invalid redirect: http://127.0.0.1:123 does not match one of the registered values.（无效的重定向：http：//127.0.0.1：123与其中一个注册值不匹配。）
+     * 可能出现的原因：1、数据库不存在 Client 发送的 redirect_uri
+     * <p>
+     * errcode：400
+     * error：unsupported_response_type（不支持的响应类型）
+     * errmsg：Unsupported response types: [code]
      *
      * @see WhitelabelErrorEndpoint
      * @see SessionAttributes
