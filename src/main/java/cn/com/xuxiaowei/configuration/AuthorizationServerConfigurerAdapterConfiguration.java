@@ -33,6 +33,7 @@ import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeSe
 import org.springframework.security.oauth2.provider.code.RandomValueAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelApprovalEndpoint;
 import org.springframework.security.oauth2.provider.endpoint.WhitelabelErrorEndpoint;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
@@ -78,6 +79,9 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     }
 
     /**
+     * endpoints.tokenEnhancer(TokenEnhancer)：
+     * 在{@link AuthorizationServerTokenServices}实现存储之前增强访问令牌的策略。
+     *
      * @see WhitelabelApprovalEndpoint
      * @see WhitelabelErrorEndpoint
      * @see AuthorizationServerEndpointsConfiguration#authorizationEndpoint()
