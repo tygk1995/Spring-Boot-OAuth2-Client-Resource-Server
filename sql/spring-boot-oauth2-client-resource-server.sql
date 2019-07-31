@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 25/07/2019 11:55:36
+ Date: 01/08/2019 01:20:05
 */
 
 SET NAMES utf8mb4;
@@ -68,7 +68,7 @@ CREATE TABLE `oauth_client_details`  (
 -- ----------------------------
 -- Records of oauth_client_details
 -- ----------------------------
-INSERT INTO `oauth_client_details` VALUES ('5e03fb292edd4e478cd7b4d6fc21518c', '{bcrypt}$2a$10$/f6qc5liQvYuZMUZlec3aOcZqd.TKxtmOtmVTJzyxVupoK31zGCW.', NULL, 'base,userinfo', NULL, 'http://127.0.0.1:123', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `oauth_client_details` VALUES ('5e03fb292edd4e478cd7b4d6fc21518c', '{bcrypt}$2a$10$/f6qc5liQvYuZMUZlec3aOcZqd.TKxtmOtmVTJzyxVupoK31zGCW.', NULL, 'base,userinfo', 'authorization_code,refresh_token,implicit', 'http://127.0.0.1:123', NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for oauth_code
