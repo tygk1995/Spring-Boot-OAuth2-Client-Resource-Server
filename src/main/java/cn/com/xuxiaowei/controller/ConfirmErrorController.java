@@ -70,7 +70,7 @@ public class ConfirmErrorController {
     @RequestMapping("/oauth/customize_error")
     public ModelAndView customizeConfirmAccess(HttpServletRequest request, HttpServletResponse response) {
 
-        Map<String, Object> model = new HashMap<String, Object>(4);
+        Map<String, Object> model = new HashMap<>(4);
         Object error = request.getAttribute("error");
 
         // 错误摘要可能包含恶意用户输入，
@@ -82,7 +82,7 @@ public class ConfirmErrorController {
         } else {
             errorSummary = "Unknown error";
         }
-        final String errorContent = ERROR.replace("%errorSummary%", errorSummary);
+        String errorContent = ERROR.replace("%errorSummary%", errorSummary);
         View errorView = new View() {
             @Override
             public String getContentType() {
