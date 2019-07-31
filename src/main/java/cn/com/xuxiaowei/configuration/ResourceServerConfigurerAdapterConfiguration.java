@@ -41,7 +41,7 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        super.configure(resources);
+
     }
 
     /**
