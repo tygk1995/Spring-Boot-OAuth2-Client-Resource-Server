@@ -65,8 +65,8 @@ public class ResourceServerConfigurerAdapterConfiguration extends ResourceServer
         // 配置资源路径 /sns/** 需要的权限 scope
         http.antMatcher("/sns/**")
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/sns/userinfo").access("#oauth2.hasAnyScope('base','userinfo')")
-                .antMatchers(HttpMethod.POST, "/sns/userinfo").access("#oauth2.hasAnyScope('base','userinfo')")
+                .antMatchers(HttpMethod.GET, "/sns/userinfo").access("#oauth2.hasAnyScope('snsapi_base','snsapi_userinfo')")
+                .antMatchers(HttpMethod.POST, "/sns/userinfo").access("#oauth2.hasAnyScope('snsapi_base','snsapi_userinfo')")
         ;
     }
 

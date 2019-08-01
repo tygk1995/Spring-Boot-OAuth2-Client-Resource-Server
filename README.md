@@ -49,7 +49,7 @@ INSERT INTO `authorities`(`username`, `authority`) VALUES ('xuxiaowei', 'ROLE_US
 ### 用户授权
 
 - 获取 code
-    - [获取 code URL](http://127.0.0.1:8080/oauth/authorize?client_id=5e03fb292edd4e478cd7b4d6fc21518c&redirect_uri=http://127.0.0.1:123&response_type=code&scope=base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7)
+    - [获取 code URL](http://127.0.0.1:8080/oauth/authorize?client_id=5e03fb292edd4e478cd7b4d6fc21518c&redirect_uri=http://127.0.0.1:123&response_type=code&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7)
         - client_id
             - 5e03fb292edd4e478cd7b4d6fc21518c
         - redirect_uri
@@ -57,8 +57,8 @@ INSERT INTO `authorities`(`username`, `authority`) VALUES ('xuxiaowei', 'ROLE_US
         - response_type
             - code
         - scope
-            - base：只能获到用户名
-            - userinfo：获取用户详细信息
+            - snsapi_base：只能获到用户名
+            - snsapi_userinfo：获取用户详细信息
         - state
             - beff3dfc-bad8-40db-b25f-e5459e3d6ad7
 
@@ -109,7 +109,7 @@ CREATE TABLE `oauth_client_details`  (
   `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '未找到时：\r\nerror=\"invalid_client\", error_description=\"Bad client credentials\"',
   `client_secret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `resource_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '为null时：{\"error\":\"invalid_scope\",\"error_description\":\"Empty scope (either the client or the user is not allowed the requested scopes)\"}\r\n未匹配到时：\r\nerror=invalid_scope&error_description=Invalid%20scope:%20base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7&scope=userinfo',
+  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '为null时：{\"error\":\"invalid_scope\",\"error_description\":\"Empty scope (either the client or the user is not allowed the requested scopes)\"}\r\n未匹配到时：\r\nerror=invalid_scope&error_description=Invalid%20scope:%20base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7&scope=snsapi_userinfo',
   `authorized_grant_types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
   `web_server_redirect_uri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '为null时：\r\nerror=\"invalid_request\", error_description=\"At least one redirect_uri must be registered with the client.\"',
   `authorities` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE `oauth_client_details`  (
   PRIMARY KEY (`client_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
-INSERT INTO `oauth_client_details`(`client_id`, `client_secret`, `resource_ids`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `authorities`, `access_token_validity`, `refresh_token_validity`, `additional_information`, `autoapprove`) VALUES ('5e03fb292edd4e478cd7b4d6fc21518c', '{bcrypt}$2a$10$/f6qc5liQvYuZMUZlec3aOcZqd.TKxtmOtmVTJzyxVupoK31zGCW.', NULL, 'base,userinfo', NULL, 'http://127.0.0.1:123', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `oauth_client_details`(`client_id`, `client_secret`, `resource_ids`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `authorities`, `access_token_validity`, `refresh_token_validity`, `additional_information`, `autoapprove`) VALUES ('5e03fb292edd4e478cd7b4d6fc21518c', '{bcrypt}$2a$10$/f6qc5liQvYuZMUZlec3aOcZqd.TKxtmOtmVTJzyxVupoK31zGCW.', NULL, 'snsapi_base,snsapi_userinfo', NULL, 'http://127.0.0.1:123', NULL, NULL, NULL, NULL, NULL);
 ~~~
 ~~~
 DROP TABLE IF EXISTS `oauth_code`;

@@ -61,7 +61,7 @@ public class SnsRestController {
         OAuth2Request oAuth2Request = oAuth2Authentication.getOAuth2Request();
         Set<String> scopes = oAuth2Request.getScope();
 
-        boolean userinfo = scopes.contains("userinfo");
+        boolean userinfo = scopes.contains("snsapi_userinfo");
         if (userinfo) {
             map = userinfo(name);
         } else {
