@@ -57,8 +57,12 @@ INSERT INTO `authorities`(`username`, `authority`) VALUES ('xuxiaowei', 'ROLE_US
         - response_type
             - code
         - scope
-            - snsapi_base：只能获到用户名
-            - snsapi_userinfo：获取用户详细信息
+            - snsapi_base：
+                - 静默授权（无需用户点击授权操作）
+                - 只能获到用户名
+            - snsapi_userinfo：
+                - 需要用户点击授权操作
+                - 获取用户详细信息
         - state
             - beff3dfc-bad8-40db-b25f-e5459e3d6ad7
 - 获取 Token
@@ -70,8 +74,12 @@ INSERT INTO `authorities`(`username`, `authority`) VALUES ('xuxiaowei', 'ROLE_US
         - response_type
             - token
         - scope
-            - snsapi_base：只能获到用户名
-            - snsapi_userinfo：获取用户详细信息
+            - snsapi_base：
+                - 静默授权（无需用户点击授权操作）
+                - 只能获到用户名
+            - snsapi_userinfo：
+                - 需要用户点击授权操作
+                - 获取用户详细信息
         - state
             - beff3dfc-bad8-40db-b25f-e5459e3d6ad7
 
