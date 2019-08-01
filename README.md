@@ -61,9 +61,22 @@ INSERT INTO `authorities`(`username`, `authority`) VALUES ('xuxiaowei', 'ROLE_US
             - snsapi_userinfo：获取用户详细信息
         - state
             - beff3dfc-bad8-40db-b25f-e5459e3d6ad7
+- 获取 Token
+    - [implicit(简化) 模式](http://127.0.0.1:8080/oauth/authorize?client_id=5e03fb292edd4e478cd7b4d6fc21518c&redirect_uri=http://127.0.0.1:123&response_type=token&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7)
+        - client_id
+            - 5e03fb292edd4e478cd7b4d6fc21518c
+        - redirect_uri
+            - http://127.0.0.1:123
+        - response_type
+            - token
+        - scope
+            - snsapi_base：只能获到用户名
+            - snsapi_userinfo：获取用户详细信息
+        - state
+            - beff3dfc-bad8-40db-b25f-e5459e3d6ad7
 
 - 获取 Token
-    - [获取 Token URL](http://127.0.0.1:8080/oauth/token?code=&client_id=5e03fb292edd4e478cd7b4d6fc21518c&client_secret=da4ce585e30346d3a876340d49e25a01&redirect_uri=http://127.0.0.1:123&grant_type=authorization_code)
+    - [authorization_code 模式](http://127.0.0.1:8080/oauth/token?code=&client_id=5e03fb292edd4e478cd7b4d6fc21518c&client_secret=da4ce585e30346d3a876340d49e25a01&redirect_uri=http://127.0.0.1:123&grant_type=authorization_code)
         - client_id
             - 5e03fb292edd4e478cd7b4d6fc21518c
         - client_secret
