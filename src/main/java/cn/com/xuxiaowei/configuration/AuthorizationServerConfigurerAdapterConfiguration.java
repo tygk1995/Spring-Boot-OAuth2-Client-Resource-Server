@@ -110,7 +110,11 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+
+        // Spring EL 表达式
+        // 获取 Token 不需要权限
         security.tokenKeyAccess("permitAll()");
+        // 检查 Token 不需要权限
         security.checkTokenAccess("permitAll()");
 
         // 允许 Client 进行表单验证（URL），否则将出现弹窗输入 ClientId、ClientSecret
