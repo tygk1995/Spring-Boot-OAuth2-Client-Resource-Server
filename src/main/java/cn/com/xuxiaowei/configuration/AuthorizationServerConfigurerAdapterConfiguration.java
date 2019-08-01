@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
@@ -59,13 +60,24 @@ import java.util.UUID;
  * {@link DefaultRedirectResolver#obtainMatchingRedirect(Set, String)}
  * <p>
  * 关于 jti：
- * 使用{@link UUID#randomUUID()#toString()}创建jti
+ * 使用{@link UUID#randomUUID()#toString()}创建 jti：
+ * {@link DefaultTokenServices#createAccessToken(OAuth2Authentication)}
+ * {@link DefaultTokenServices#createAccessToken(OAuth2Authentication, OAuth2RefreshToken)}
+ * 在方法{@link JwtAccessTokenConverter#enhance(OAuth2AccessToken, OAuth2Authentication)}中将 AccessToken 放入 jti 中
+ * <p>
+ * 关于 AccessToken：
+ * 时效：默认为 12小时 {@link DefaultTokenServices#accessTokenValiditySeconds}
+ * 创建：
  * {@link DefaultTokenServices#createAccessToken(OAuth2Authentication)}
  * {@link DefaultTokenServices#createAccessToken(OAuth2Authentication, OAuth2RefreshToken)}
  * <p>
- * 关于 Token：
- * AccessToken：默认为 12小时 {@link DefaultTokenServices#accessTokenValiditySeconds}
- * refreshToken：默认为 30 天 {@link DefaultTokenServices#refreshTokenValiditySeconds}
+ * 关于 RefreshToken：
+ * 时效：默认为 30 天 {@link DefaultTokenServices#refreshTokenValiditySeconds}
+ * 创建：{@link DefaultTokenServices#createRefreshToken(OAuth2Authentication)}
+ * <p>
+ * 关于 Jwt 加密：
+ * 在{@link DefaultTokenServices#createAccessToken(OAuth2Authentication, OAuth2RefreshToken)}中
+ * 调用{@link JwtAccessTokenConverter#enhance(OAuth2AccessToken, OAuth2Authentication)}进行加密
  *
  * @author xuxiaowei
  * @see <a href="http://127.0.0.1:8080/oauth/authorize?client_id=5e03fb292edd4e478cd7b4d6fc21518c&redirect_uri=http://127.0.0.1:123&response_type=code&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 code（静默授权）</a>
