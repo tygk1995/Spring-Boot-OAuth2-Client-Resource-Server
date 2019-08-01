@@ -8,7 +8,7 @@
 
 <h3>您是否授权“[[${clientId}]]”访问受保护的资源？</h3>
 
-<form id="form-authorize" action="/oauth/authorize" method="post">
+<form id="form-authorize" action="" method="post">
 
     <input type="hidden" name="_csrf" th:value="${_csrf}">
     <input type="hidden" name="user_oauth_approval" value="true">
