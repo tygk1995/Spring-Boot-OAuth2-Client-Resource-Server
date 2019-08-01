@@ -42,6 +42,11 @@ import java.util.Set;
 public class ConfirmAccessController {
 
     /**
+     * 静默授权
+     */
+    private static final String SNSAPI_BASE = "snsapi_base";
+
+    /**
      * 确认访问授权 页面
      *
      * @see WhitelabelApprovalEndpoint
@@ -63,6 +68,12 @@ public class ConfirmAccessController {
 
         model.addAttribute("clientId", clientId);
         model.addAttribute("scopes", scopes);
+
+        // 静默授权的情况判断
+        if (scopes.size() == 1 && scopes.contains(SNSAPI_BASE)) {
+            model.addAttribute("silentAuth", true);
+        }
+
         return "oauth/customize_confirm_access";
     }
 

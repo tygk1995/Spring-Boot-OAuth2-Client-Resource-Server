@@ -18,19 +18,32 @@
             <div>
                 [[${'scope.' + scope}]]
                 <label>
-                    <input type="radio" th:name="${'scope.' + scope}" value="true">
-                    同意
+                    <input type="radio" th:name="${'scope.' + scope}" th:id="${'scope-' + scope + '-true'}"
+                           value="true" th:text="同意">
                 </label>
                 <label>
-                    <input type="radio" th:name="${'scope.' + scope}" value="false" checked>
-                    拒绝
+                    <input type="radio" th:name="${'scope.' + scope}" th:id="${'scope-' + scope + '-false'}"
+                           value="false" th:text="拒绝" checked>
                 </label>
             </div>
         </li>
     </ul>
 
-    <button name="authorize" type="submit">授权</button>
+    <button name="authorize" type="submit" id="submit">授权</button>
 </form>
 
 </body>
+
+<script type="text/javascript" th:src="@{/jquery/jquery-3.4.1.min.js}"></script>
+<script th:inline="javascript" type="text/javascript">
+
+    $(function () {
+        if ([[${silentAuth}]] === true) {
+            $("#scope-snsapi_base-true").attr('checked', true);
+            $("#submit").click();
+        }
+    })
+
+</script>
+
 </html>
