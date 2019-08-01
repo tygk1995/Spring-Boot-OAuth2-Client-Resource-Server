@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.common.util.RandomValueStringGenerator;
@@ -45,6 +46,7 @@ import javax.sql.DataSource;
 import java.security.Principal;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * 授权服务器配置
@@ -56,6 +58,11 @@ import java.util.Set;
  * {@link DefaultRedirectResolver#resolveRedirect(String, ClientDetails)}
  * {@link DefaultRedirectResolver#obtainMatchingRedirect(Set, String)}
  * <p>
+ * 关于 jti：
+ * 使用{@link UUID#randomUUID()#toString()}创建jti
+ * {@link DefaultTokenServices#createAccessToken(OAuth2Authentication)}
+ * {@link DefaultTokenServices#createAccessToken(OAuth2Authentication, OAuth2RefreshToken)}
+ * <p>
  * 关于 Token：
  * AccessToken：默认为 12小时 {@link DefaultTokenServices#accessTokenValiditySeconds}
  * refreshToken：默认为 30 天 {@link DefaultTokenServices#refreshTokenValiditySeconds}
@@ -65,7 +72,7 @@ import java.util.Set;
  * @see <a href="http://127.0.0.1:8080/oauth/authorize?client_id=5e03fb292edd4e478cd7b4d6fc21518c&redirect_uri=http://127.0.0.1:123&response_type=code&scope=snsapi_userinfo&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 code</a>
  * @see <a href="http://127.0.0.1:8080/oauth/authorize?client_id=5e03fb292edd4e478cd7b4d6fc21518c&redirect_uri=http://127.0.0.1:123&response_type=token&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7">获取 Token（implicit，简化模式）</a>
  * @see AuthorizationEndpoint#authorize(Map, Map, SessionStatus, Principal)
- * @see <a href="http://127.0.0.1:8080/oauth/token?code=qa8P6B&client_id=5e03fb292edd4e478cd7b4d6fc21518c&client_secret=da4ce585e30346d3a876340d49e25a01&redirect_uri=http://127.0.0.1:123&grant_type=authorization_code">获取 Token</a>
+ * @see <a href="http://127.0.0.1:8080/oauth/token?code=evP7tmtrRk7Y5bhewjRCo9iUMzcFyByi&client_id=5e03fb292edd4e478cd7b4d6fc21518c&client_secret=da4ce585e30346d3a876340d49e25a01&redirect_uri=http://127.0.0.1:123&grant_type=authorization_code">获取 Token</a>
  * @see TokenEndpoint#getAccessToken(Principal, Map)
  * @see <a href="http://127.0.0.1:8080/oauth/check_token?token=">检查 Token</a>
  * @see CheckTokenEndpoint#checkToken(String)
