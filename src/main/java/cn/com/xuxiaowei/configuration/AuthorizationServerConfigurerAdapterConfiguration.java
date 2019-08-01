@@ -147,7 +147,15 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
     /**
      * endpoints.tokenEnhancer(TokenEnhancer)：
      * 在{@link AuthorizationServerTokenServices}实现存储之前增强访问令牌的策略。
+     * <p>
+     * 可自定义 OAuth 授权、Token 相关的地址
+     * endpoints.pathMapping("/oauth/authorize", "/oauth2.0/authorize");
+     * endpoints.pathMapping("/oauth/token", "/oauth2.0/token");
+     * <p>
+     * 配置Authorization Server端点的属性和增强功能。
+     * FrameworkEndpointHandlerMapping handlerMapping = endpoints.getFrameworkEndpointHandlerMapping();
      *
+     * @see AuthorizationServerSecurityConfiguration
      * @see WhitelabelApprovalEndpoint
      * @see WhitelabelErrorEndpoint
      * @see AuthorizationServerEndpointsConfiguration#authorizationEndpoint()
