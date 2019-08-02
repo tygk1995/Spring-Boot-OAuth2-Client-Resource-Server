@@ -2,6 +2,10 @@
 # Spring Boot 配置
 spring:
   #
+  #
+  main:
+    allow-bean-definition-overriding: true
+  #
   # 数据库 配置
   datasource:
     # 数据库 驱动名称（包括包名）
