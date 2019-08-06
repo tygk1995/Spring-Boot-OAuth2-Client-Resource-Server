@@ -60,9 +60,15 @@ public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfig
         auth.userDetailsService(jdbcDaoImpl()).passwordEncoder(delegatingPasswordEncoder);
     }
 
+    /**
+     * /favicon.ico：LOGO
+     * /js/**：静态文件 .js
+     * /qrcode：二维码
+     * /oauth/authorize/qr：扫描二维码授权
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
-
+        web.ignoring().mvcMatchers("/favicon.ico", "/js/**", "/qrcode", "/oauth/authorize/qr");
     }
 
     @Override

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>请求授权</title>
+</head>
+<body>
+
+<!--<h3>您是否授权“[[${clientId}]]”访问受保护的资源？</h3>-->
+
+<div style="text-align: center; margin-top: 50px;">
+
+    <h3>扫码登录</h3>
+
+    <img id="qrcode" alt="" th:src="@{${'/qrcode?uuid=' + uuid}}" width="282px" height="282px">
+
+    <div>
+        <div>请使用手机（已登录）扫描二维码登录</div>
+        <div th:text="${clientId}"></div>
+    </div>
+
+</div>
+
+</body>
+
+<script type="text/javascript" th:src="@{/js/jquery/jquery-3.4.1.min.js}"></script>
+<script th:inline="javascript" type="text/javascript">
+
+    var uuid = [[${uuid}]];
+
+    // $('input:radio').on("click", function () {
+    //
+    //     var separate = "";
+    //     var src = "/qrcode?uuid=" + uuid + "&scope=";
+    //     var scopeRadios = $("input:radio");
+    //     for (var i = 0; i < scopeRadios.length; i++) {
+    //         var scopeRadio = scopeRadios[i];
+    //         if (scopeRadio.value === "true" && scopeRadio.checked) {
+    //             src = src + separate + scopeRadio.name;
+    //             separate = ",";
+    //         }
+    //     }
+    //
+    //     $("#qrcode")[0].src = src;
+    // });
+
+    $(function () {
+
+
+    })
+
+</script>
+
+</html>

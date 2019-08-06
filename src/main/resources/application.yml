@@ -13,6 +13,18 @@ spring:
     # 数据库 密码
     password: root
   #
+  # Redis 配置
+  redis:
+    # 数据库名称，默认为 db0
+    # 连接工厂使用的数据库索引。
+    database: 4
+    # Redis服务器主机。
+    host: 127.0.0.1
+    # redis服务器的登录密码。
+    password:
+    # Redis服务器端口。
+    port: 6379
+  #
   # Thymeleaf 配置
   thymeleaf:
     # 是否启用模板缓存。
