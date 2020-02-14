@@ -88,7 +88,7 @@ import java.util.UUID;
  * @see AuthorizationEndpoint#authorize(Map, Map, SessionStatus, Principal)
  * @see <a href="http://127.0.0.1:8080/oauth/token?code=bHy53RqZSBurCNUaa34rt5VT2RPQBidB&client_id=5e03fb292edd4e478cd7b4d6fc21518c&client_secret=da4ce585e30346d3a876340d49e25a01&redirect_uri=http://127.0.0.1:123&grant_type=authorization_code">获取 Token</a>
  * @see TokenEndpoint#getAccessToken(Principal, Map)
- * @see <a href="http://127.0.0.1:8080/oauth/check_token?token=">检查 Token</a>
+ * @see <a href="http://127.0.0.1:8080/oauth/check_token?token=">检查 Token（需要使用 POST）</a>
  * @see CheckTokenEndpoint#checkToken(String)
  * @see <a href="http://127.0.0.1:8080/oauth/token?client_id=5e03fb292edd4e478cd7b4d6fc21518c&client_secret=da4ce585e30346d3a876340d49e25a01&grant_type=refresh_token&refresh_token=">刷新 Token</a>
  * @see TokenEndpoint#getAccessToken(Principal, Map)
