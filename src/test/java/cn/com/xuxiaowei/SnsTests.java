@@ -15,13 +15,11 @@
  */
 package cn.com.xuxiaowei;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -35,9 +33,8 @@ import java.util.Map;
  * @author xuxiaowei
  * @since 0.0.1
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class SnsTests {
+class SnsTests {
 
     @Autowired
     private DataSource dataSource;
@@ -51,7 +48,7 @@ public class SnsTests {
      * 根据用户名，查询用户信息
      */
     @Test
-    public void userinfo() {
+    void userinfo() {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);

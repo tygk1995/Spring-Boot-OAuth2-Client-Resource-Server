@@ -15,7 +15,7 @@
  */
 package cn.com.xuxiaowei.configuration;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -29,7 +29,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author xuxiaowei
  * @since 0.0.1
  */
-public class PasswordEncoderTests {
+class PasswordEncoderTests {
 
     /**
      * 创建密码：
