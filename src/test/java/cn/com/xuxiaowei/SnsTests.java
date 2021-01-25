@@ -15,6 +15,7 @@
  */
 package cn.com.xuxiaowei;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,6 +34,7 @@ import java.util.Map;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @SpringBootTest
 class SnsTests {
 
@@ -71,7 +73,7 @@ class SnsTests {
                     }
                 });
 
-        System.err.println(map);
+        log.info(String.valueOf(map));
     }
 
 }

@@ -15,6 +15,7 @@
  */
 package cn.com.xuxiaowei.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,6 +34,7 @@ import javax.servlet.http.HttpSession;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 @Controller
 public class IndexController {
 
@@ -48,15 +50,15 @@ public class IndexController {
         if (springSecurityContext instanceof SecurityContextImpl) {
             SecurityContextImpl securityContext = (SecurityContextImpl) springSecurityContext;
             Authentication authentication = securityContext.getAuthentication();
-            System.err.println(authentication);
+            log.info(String.valueOf(authentication));
         }
 
-        System.err.println();
+        log.info("");
 
         // 或
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
-        System.err.println(authentication);
+        log.info(String.valueOf(authentication));
 
         return "index";
     }

@@ -15,6 +15,7 @@
  */
 package cn.com.xuxiaowei.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +30,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 class PasswordEncoderTests {
 
     /**
@@ -40,7 +42,7 @@ class PasswordEncoderTests {
     public void createPassword() {
         PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         String encode = delegatingPasswordEncoder.encode("123");
-        System.err.println(encode);
+        log.info(encode);
     }
 
     /**
@@ -50,7 +52,7 @@ class PasswordEncoderTests {
     public void matches() {
         PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         boolean matches = delegatingPasswordEncoder.matches("123", "{bcrypt}$2a$10$nDGmklGtTcL/AWNisIqgJ.p8z0teas89FhMAGdVSNlQxR/uMG/ZrS");
-        System.err.println(matches);
+        log.info(String.valueOf(matches));
     }
 
     /**
@@ -62,7 +64,7 @@ class PasswordEncoderTests {
     public void createClientSecret() {
         PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         String encode = delegatingPasswordEncoder.encode("da4ce585e30346d3a876340d49e25a01");
-        System.err.println(encode);
+        log.info(encode);
     }
 
 }
