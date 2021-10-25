@@ -43,10 +43,10 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfigurerAdapterConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
+    private DataSource dataSource;
 
     @Autowired
-    public WebSecurityConfigurerAdapterConfiguration(DataSource dataSource) {
+    public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
