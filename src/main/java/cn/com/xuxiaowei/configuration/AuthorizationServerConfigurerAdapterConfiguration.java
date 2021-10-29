@@ -170,7 +170,7 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
 
         // code 持久化
         endpoints.authorizationCodeServices(new JdbcAuthorizationCodeServices(dataSource) {
-            private RandomValueStringGenerator generator = new RandomValueStringGenerator();
+            private final RandomValueStringGenerator RANDOM_VALUE_STRING_GENERATOR = new RandomValueStringGenerator();
 
             /**
              * 重写 code 持久化，自定义 code 长度
@@ -182,8 +182,8 @@ public class AuthorizationServerConfigurerAdapterConfiguration extends Authoriza
              */
             @Override
             public String createAuthorizationCode(OAuth2Authentication authentication) {
-                generator.setLength(32);
-                String code = generator.generate();
+                RANDOM_VALUE_STRING_GENERATOR.setLength(32);
+                String code = RANDOM_VALUE_STRING_GENERATOR.generate();
                 store(code, authentication);
                 return code;
             }
